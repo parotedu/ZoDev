@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>ZoDev | The Deluge & Zoho Developer Suite by PAROT</title>
+    <link rel="icon" href="./assets/zodev-logo.svg" type="image/svg+xml">
+
+    <!-- Anti-BiDi & Safari Light-Mode Flash Prevention Script -->
+    <script>
+        try {
+            localStorage.removeItem('parot_zoho_lang');
+            document.documentElement.dir = 'ltr';
+            document.documentElement.lang = 'en';
+        } catch(e) {}
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parot: {
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            blue: '#3B82F6',
+                            cyan: '#06B6D4',
+                            emerald: '#10B981',
+                            dark: '#08090E',
+                            card: '#0D1019',
+                            input: '#05060A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        arabic: ['IBM Plex Sans Arabic', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Vector Icons Library -->
+    <script src="./assets/lucide.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+
+<body class="bg-grid text-slate-100 min-h-screen">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+    <!-- Main App Shell -->
+    <div class="app-shell">
+
+        <!-- ==================================================================
+             LEFT SIDEBAR NAVIGATION
+             ================================================================== -->
+        <aside id="app-sidebar" class="app-sidebar">
+            
+            <!-- Sidebar Header & Brand -->
+            <div class="p-4 border-b border-white/[0.08] flex items-center justify-between">
+                <a href="#hub" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-purple-500/25 group-hover:scale-105 transition-transform flex items-center justify-center">
+                        <img src="./assets/zodev-logo.svg" alt="ZoDev Logo" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-lg font-black tracking-wider bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent">ZODEV</span>
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">DEV TOOLS</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-medium">Deluge Suite by <span class="text-pink-400 font-semibold">PAROT</span></div>
+                    </div>
+                </a>
+
+                <!-- Mobile Close Button -->
+                <button id="sidebar-close-btn" class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Instant Tool Search -->
+            <div class="p-3 border-b border-white/[0.08]">
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <input id="tool-search-input" type="text" placeholder="Search 18 tools..." 
+                           class="w-full bg-[#05060A] border border-white/10 rounded-lg pl-9 pr-10 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-parot-purple transition-colors">
+                    <span class="kbd-badge absolute right-2.5 top-1/2 -translate-y-1/2">/</span>
+                </div>
+            </div>
+
+            <!-- Scrollable Navigation Tree -->
+            <nav class="flex-1 p-3 space-y-4 overflow-y-auto">
+                
+                <!-- Quick Overview Hub -->
+                <div>
+                    <button class="sidebar-tool-btn active" data-target="hub" data-name="All Tools Hub Catalog Overview">
+                        <div class="tool-label">
+                            <i data-lucide="layout-grid" class="w-4 h-4 text-parot-pink"></i>
+                            <span class="tool-name font-semibold">All Tools Hub</span>
+                        </div>
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">18 TOOLS</span>
+                    </button>
+                </div>
+
+                <!-- Section: CORE & API -->
+                <div class="sidebar-group">
+                    <div class="sidebar-section-title">Core & API</div>
+                    <div class="space-y-0.5">
+                        <button class="sidebar-tool-btn" data-target="json-deluge" data-name="JSON to Deluge Mapper Interactive Studio" data-category="api">
+                            <div class="tool-label">
+                                <i data-lucide="braces" class="w-4 h-4 text-parot-purple"></i>
+                                <span class="tool-name">JSON to Deluge</span>
+                            </div>
+                            <span class="type-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">POPULAR</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="curl-invokeurl" data-name="cURL to invokeurl REST API converter" data-category="api">
+                            <div class="tool-label">
+                                <i data-lucide="terminal" class="w-4 h-4 text-parot-blue"></i>
+                                <span class="tool-name">cURL to invokeurl</span>
+                            </div>
+                            <span class="type-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">API</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="webhook" data-name="Webhook Payload Unpacker crmAPIRequest" data-category="api">
+                            <div class="tool-label">
+                                <i data-lucide="webhook" class="w-4 h-4 text-amber-400"></i>
+                                <span class="tool-name">Webhook Unpacker</span>
+                            </div>
+                            <span class="type-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">CRM</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="json-xml" data-name="JSON to XML Converter toXML getJSON" data-category="api">
+                            <div class="tool-label">
+                                <i data-lucide="file-code-2" class="w-4 h-4 text-parot-cyan"></i>
+                                <span class="tool-name">JSON ↔ XML</span>
+                            </div>
+                            <span class="type-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">NEW</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="payload-diff" data-name="Payload Diff Engine Changes Update Only" data-category="api">
+                            <div class="tool-label">
+                                <i data-lucide="git-compare" class="w-4 h-4 text-indigo-400"></i>
+                                <span class="tool-name">Payload Diff</span>
+                            </div>
+                            <span class="type-badge bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">NEW</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section: CRM & DESK -->
+                <div class="sidebar-group">
+                    <div class="sidebar-section-title">Zoho CRM & Desk</div>
+                    <div class="space-y-0.5">
+                        <button class="sidebar-tool-btn" data-target="coql-builder" data-name="CRM COQL Query Builder SQL" data-category="crm">
+                            <div class="tool-label">
+                                <i data-lucide="database" class="w-4 h-4 text-violet-400"></i>
+                                <span class="tool-name">COQL Query Builder</span>
+                            </div>
+                            <span class="type-badge bg-violet-500/20 text-violet-300 border border-violet-500/30">SQL</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="criteria-builder" data-name="Criteria Search Builder searchRecordsByCriteria" data-category="crm">
+                            <div class="tool-label">
+                                <i data-lucide="filter" class="w-4 h-4 text-emerald-400"></i>
+                                <span class="tool-name">Criteria Builder</span>
+                            </div>
+                            <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">NEW</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="lead-dedup" data-name="Lead Deduplication and Merge CRM script" data-category="crm">
+                            <div class="tool-label">
+                                <i data-lucide="users" class="w-4 h-4 text-rose-400"></i>
+                                <span class="tool-name">Lead Dedup & Merge</span>
+                            </div>
+                            <span class="type-badge bg-rose-500/20 text-rose-300 border border-rose-500/30">NEW</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="desk-builder" data-name="Zoho Desk Ticket Comment Builder" data-category="crm">
+                            <div class="tool-label">
+                                <i data-lucide="life-buoy" class="w-4 h-4 text-sky-400"></i>
+                                <span class="tool-name">Desk Ticket & Comment</span>
+                            </div>
+                            <span class="type-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">NEW</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section: FINANCE & BOOKS -->
+                <div class="sidebar-group">
+                    <div class="sidebar-section-title">Finance & Books</div>
+                    <div class="space-y-0.5">
+                        <button class="sidebar-tool-btn" data-target="books-engine" data-name="Zoho Books Multi-Item Invoice Engine" data-category="finance">
+                            <div class="tool-label">
+                                <i data-lucide="receipt" class="w-4 h-4 text-emerald-400"></i>
+                                <span class="tool-name">Books Invoice Engine</span>
+                            </div>
+                            <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">NEW</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="currency-cleaner" data-name="Arabic Numerals & Currency Cleaner" data-category="finance">
+                            <div class="tool-label">
+                                <i data-lucide="calculator" class="w-4 h-4 text-teal-400"></i>
+                                <span class="tool-name">Arabic Num & Currency</span>
+                            </div>
+                            <span class="type-badge bg-teal-500/20 text-teal-300 border border-teal-500/30">NEW</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section: LOGIC & LIMITS -->
+                <div class="sidebar-group">
+                    <div class="sidebar-section-title">Logic & Limits</div>
+                    <div class="space-y-0.5">
+                        <button class="sidebar-tool-btn" data-target="pagination" data-name="Safe Pagination Loop Generator 5000 statement" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="refresh-cw" class="w-4 h-4 text-emerald-400"></i>
+                                <span class="tool-name">Safe Pagination Loop</span>
+                            </div>
+                            <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">SAFE</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="statement-throttler" data-name="5000 Statement Limit Throttler Guard" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="gauge" class="w-4 h-4 text-red-400"></i>
+                                <span class="tool-name">Statement Throttler</span>
+                            </div>
+                            <span class="type-badge bg-red-500/20 text-red-300 border border-red-500/30">LIMIT</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="hmac-signer" data-name="HMAC SHA256 Signature Builder Verification" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i>
+                                <span class="tool-name">HMAC & Hash Signer</span>
+                            </div>
+                            <span class="type-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">NEW</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="date-tools" data-name="Date and Time Swiss Knife Timezones Format" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="calendar" class="w-4 h-4 text-parot-cyan"></i>
+                                <span class="tool-name">Date & Time Toolkit</span>
+                            </div>
+                            <span class="type-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">TIME</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="string-regex" data-name="String and Regex Utilities Phone Base64" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="scissors" class="w-4 h-4 text-rose-400"></i>
+                                <span class="tool-name">String & Regex Tools</span>
+                            </div>
+                            <span class="type-badge bg-rose-500/20 text-rose-300 border border-rose-500/30">TEXT</span>
+                        </button>
+                        <button class="sidebar-tool-btn" data-target="unit-testing" data-name="Deluge Unit Testing & Mock Runner Assertions" data-category="logic">
+                            <div class="tool-label">
+                                <i data-lucide="flask-conical" class="w-4 h-4 text-amber-400"></i>
+                                <span class="tool-name">Unit Test Runner</span>
+                            </div>
+                            <span class="type-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">NEW</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section: SNIPPETS -->
+                <div class="sidebar-group">
+                    <div class="sidebar-section-title">Knowledge & Snippets</div>
+                    <div class="space-y-0.5">
+                        <button class="sidebar-tool-btn" data-target="snippets" data-name="Production Snippets Vault Code Library" data-category="snippets">
+                            <div class="tool-label">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-yellow-400"></i>
+                                <span class="tool-name">Snippet Vault</span>
+                            </div>
+                            <span class="type-badge bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">VAULT</span>
+                        </button>
+                    </div>
+                </div>
+
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="p-3 border-t border-white/[0.08] bg-[#07090E]/60 flex flex-col gap-2">
+                <a href="https://parotcorp.com" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-slate-300 hover:text-white transition-colors group">
+                    <span class="font-medium">parotcorp.com</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-parot-pink group-hover:translate-x-0.5 transition-transform"></i>
+                </a>
+            </div>
+
+        </aside>
+
+        <!-- ==================================================================
+             MAIN WORKSPACE AREA
+             ================================================================== -->
+        <main class="app-main">
+
+            <!-- Mobile Top Header Bar (Shown on small screens) -->
+            <div class="lg:hidden flex items-center justify-between mb-4 pb-3 border-b border-white/[0.08]">
+                <div class="flex items-center gap-3">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg bg-white/5 border border-white/10 text-white">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <img src="./assets/zodev-logo.svg" alt="ZoDev Logo" class="w-6 h-6 object-contain">
+                        <span class="text-base font-black bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent">ZODEV</span>
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">18 TOOLS</span>
+                    </div>
+                </div>
+                <button class="btn-secondary text-xs flex items-center gap-1.5" onclick="window.App.switchTab('hub')">
+                    <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-parot-pink"></i>
+                    <span>Hub</span>
+                </button>
+            </div>
+
+            <!-- ==============================================================
+                 PANEL 0: ALL TOOLS HUB / CATALOG (DEFAULT DASHBOARD)
+                 ============================================================== -->
+            <div id="panel-hub" class="tool-panel">
+                
+                <!-- Hero Section -->
+                <div class="studio-card p-6 sm:p-8 mb-8 relative overflow-hidden bg-gradient-to-br from-[#0F1322] via-[#0D101C] to-[#08090E] border-purple-500/20">
+                    <div class="absolute -right-16 -top-16 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="relative z-10 max-w-4xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-purple-300 mb-3">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-parot-pink"></i>
+                            <span>The Next-Generation Deluge Developer Suite</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                            ZODEV <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-300">Developer Studio</span>
+                        </h1>
+                        <p class="text-sm sm:text-base text-slate-300 font-arabic leading-relaxed mb-3">
+                            أقوى حزمة أدوات مجانية وسريعة لمطوري Zoho ومهندسي لغة Deluge. أسرع 10 مرات في بناء وتصحيح المخططات، كتابة الأكواد، وتفادي حدود المنظومة.
+                        </p>
+                        <p class="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed mb-6 max-w-3xl">
+                            18 production-grade engineering tools crafted by <strong class="text-white">PAROT Corp</strong> to eliminate Deluge boilerplate, construct API mappings, prevent 5,000 statement limit crashes, and accelerate Zoho CRM, Books, and Desk integrations.
+                        </p>
+
+                        <!-- Highlights Pills -->
+                        <div class="flex flex-wrap items-center gap-3 text-xs">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-medium">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                                <span>100% Client-Side / Zero Server</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300 font-medium">
+                                <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                                <span>Your Data Never Leaves Browser</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 font-medium">
+                                <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+                                <span>Copy-Paste Ready Deluge Code</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hub Toolbar: Category Filters & Search -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                        <button class="hub-filter-pill active" data-category="all">All Tools (18)</button>
+                        <button class="hub-filter-pill" data-category="api">Core & API (5)</button>
+                        <button class="hub-filter-pill" data-category="crm">Zoho CRM & Desk (4)</button>
+                        <button class="hub-filter-pill" data-category="finance">Finance & Books (2)</button>
+                        <button class="hub-filter-pill" data-category="logic">Logic & Limits (6)</button>
+                        <button class="hub-filter-pill" data-category="snippets">Snippets (1)</button>
+                    </div>
+
+                    <div class="relative w-full md:w-72 flex-shrink-0">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        <input id="hub-search-input" type="text" placeholder="Filter tools in catalog..." 
+                               class="w-full bg-[#05060A] border border-white/10 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-parot-purple transition-colors">
+                    </div>
+                </div>
+
+                <!-- 18 Tools Catalog Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    
+                    <!-- Tool 1: JSON to Deluge -->
+                    <div class="hub-card group" data-target="json-deluge" data-category="api">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="braces" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">FLAGSHIP</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">JSON to Deluge Studio</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                استكشف أي JSON تفاعلياً واضغط على أي عنصر لتوليد كود Deluge آمن (.get()) مع دعم Type-Casting وربط كامل بحقول CRM بنقرة واحدة.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-purple-400 group-hover:text-pink-400">
+                            <span>Launch Studio</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: cURL to invokeurl -->
+                    <div class="hub-card group" data-target="curl-invokeurl" data-category="api">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">REST API</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">cURL to invokeurl</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                يحول أي أمر cURL فوريًا إلى دالة invokeurl في ديلوج مع فصل الترويسات (Headers)، المعاملات (Parameters)، ودعم Connection.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-blue-400 group-hover:text-pink-400">
+                            <span>Open Converter</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Webhook Unpacker -->
+                    <div class="hub-card group" data-target="webhook" data-category="api">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="webhook" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">SECURITY</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Webhook Payload Unpacker</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                يولد كود استقبال الـ Webhooks في Zoho مع معالجة crmAPIRequest واستخراج الـ body والـ headers والتحقق من التوكن السري تلقائياً.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-amber-400 group-hover:text-pink-400">
+                            <span>Unpack Webhook</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: JSON ↔ XML -->
+                    <div class="hub-card group" data-target="json-xml" data-category="api">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="file-code-2" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">JSON ↔ XML Converter</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                تحويل تبادلي بين JSON و XML في ديلوج باستخدام الدوال الرسمية (.toXML() و .getJSON()) لدعم الربط مع البوابات الحكومية والقديمة.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-cyan-400 group-hover:text-pink-400">
+                            <span>Convert XML/JSON</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 5: Payload Diff Engine -->
+                    <div class="hub-card group" data-target="payload-diff" data-category="api">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="git-compare" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Payload Diff Engine</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                يقارن بين نسختين من الـ Payload ويولد كود ديلوج يحدّث فقط الحقول التي تغيرت فعلياً في Zoho CRM لتفادي استهلاك استدعاءات API الزائدة.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-indigo-400 group-hover:text-pink-400">
+                            <span>Compare Payloads</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 6: COQL Builder -->
+                    <div class="hub-card group" data-target="coql-builder" data-category="crm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-violet-500/15 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="database" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-violet-500/20 text-violet-300 border border-violet-500/30">CRM SQL</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">CRM COQL Query Builder</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                محرر استعلامات COQL المتوافق 100% مع قواعد Zoho CRM مع خيار التدوير التلقائي (Offset Pagination Loop) لجلب آلاف السجلات بسرعة.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-violet-400 group-hover:text-pink-400">
+                            <span>Build COQL Query</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 7: Criteria Search Builder -->
+                    <div class="hub-card group" data-target="criteria-builder" data-category="crm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="filter" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Criteria Search Builder</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                بناء استعلامات البحث الدقيقة searchRecordsByCriteria مع ضبط الأقواس والشروط المركبة (and / or) المعقدة بدون أي أخطاء في الـ Syntax.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-emerald-400 group-hover:text-pink-400">
+                            <span>Build Criteria</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 8: Lead Dedup & Merge -->
+                    <div class="hub-card group" data-target="lead-dedup" data-category="crm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-rose-500/20 text-rose-300 border border-rose-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Lead Dedup & Merge</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                كود ديلوج متكامل لفحص تكرار العملاء المحتملين (بالإيميل أو الهاتف أو الشركة) ودمج البيانات تلقائيًا أو تحديث السجل الأصلي.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-rose-400 group-hover:text-pink-400">
+                            <span>Generate Merge Script</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 9: Zoho Desk Ticket & Comment -->
+                    <div class="hub-card group" data-target="desk-builder" data-category="crm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="life-buoy" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-sky-500/20 text-sky-300 border border-sky-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Zoho Desk Ticket & Comment</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                منشئ تذاكر الدعم الفني في Zoho Desk وإضافة التعليقات الخاصة (Private Agent Comments) بتنسيق Deluge الصحيح وقنوات الدعم المعتمدة.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-sky-400 group-hover:text-pink-400">
+                            <span>Build Desk Action</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 10: Books Invoice Engine -->
+                    <div class="hub-card group" data-target="books-engine" data-category="finance">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="receipt" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Books Multi-Item Invoice Engine</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                يولد مصفوفة البنود المتعددة (Line Items) والخصومات والضرائب لإنشاء أو تحديث فواتير Zoho Books برمجياً بدون تعقيد.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-emerald-400 group-hover:text-pink-400">
+                            <span>Build Invoice</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 11: Arabic Numbers & Currency -->
+                    <div class="hub-card group" data-target="currency-cleaner" data-category="finance">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-500/30 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-teal-500/20 text-teal-300 border border-teal-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Arabic Num & Currency Cleaner</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                تنظيف الأرقام العربية المشرقية (١٢٣) وتحويلها إلى (123) وتجريد العملات والكسور لاستيعاب المبالغ في حقول ديلوج الرقمية بأمان.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-teal-400 group-hover:text-pink-400">
+                            <span>Clean Numbers</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 12: Safe Pagination Loop -->
+                    <div class="hub-card group" data-target="pagination" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">SAFE</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Safe Pagination Generator</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                حلقات التدوير الآمنة لجلب آلاف السجلات من CRM أو Books أو API خارجي دون تجاوز سقف 5000 Statement أو التوقف المفاجئ.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-emerald-400 group-hover:text-pink-400">
+                            <span>Build Safe Loop</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 13: Statement Throttler -->
+                    <div class="hub-card group" data-target="statement-throttler" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="gauge" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-red-500/20 text-red-300 border border-red-500/30">LIMIT</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">5,000 Statement Throttler</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                عداد ذكي يراقب استهلاك التعليمات البرمجية داخل الاسكربت ويفصل العمليات إلى باتشات آمنة مع تنبيه المشرف قبل الوصول للحد القاتل.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-red-400 group-hover:text-pink-400">
+                            <span>Guard Limits</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 14: HMAC & Hash Signer -->
+                    <div class="hub-card group" data-target="hmac-signer" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">SECURITY</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">HMAC & Hash Signer</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                توليد وفحص التوقيعات الرقمية HMAC-SHA256 و SHA256 و MD5 في ديلوج للربط الآمن مع Stripe و Shopify وبوابات الدفع.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-purple-400 group-hover:text-pink-400">
+                            <span>Generate Hash</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 15: Date & Time Swiss Knife -->
+                    <div class="hub-card group" data-target="date-tools" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">TIME</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Date & Time Toolkit</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                حزمة التاريخ والتوقيت: تحويل المناطق الزمنية، حساب أيام العمل (Business Days)، صيغ Zoho CRM و Books مع معاينة حية لحظية.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-cyan-400 group-hover:text-pink-400">
+                            <span>Open Date Tools</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 16: String & Regex Utilities -->
+                    <div class="hub-card group" data-target="string-regex" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="scissors" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-rose-500/20 text-rose-300 border border-rose-500/30">TEXT</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">String & Regex Tools</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                تنظيف أرقام الهواتف للصيغة الدولية، استخراج نطاق البريد، تحويل CSV إلى Deluge List، التشفير وفك التشفير Base64 و URL.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-rose-400 group-hover:text-pink-400">
+                            <span>Clean Strings</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 17: Deluge Unit Testing -->
+                    <div class="hub-card group" data-target="unit-testing" data-category="logic">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="flask-conical" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">NEW</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Unit Testing & Mock Runner</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                إطار عمل خفيف لاختبار دوال ديلوج (Unit Testing Framework) مع حالات التحقق (Pass/Fail) وحساب نسبة النجاح قبل النشر في الإنتاج.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-amber-400 group-hover:text-pink-400">
+                            <span>Create Unit Test</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tool 18: Snippet Vault -->
+                    <div class="hub-card group" data-target="snippets" data-category="snippets">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-yellow-500/15 border border-yellow-500/30 flex items-center justify-center text-yellow-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                </div>
+                                <span class="type-badge bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">VAULT</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-parot-pink transition-colors mb-1.5">Production Snippets Vault</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed font-arabic mb-3">
+                                مكتبة جاهزة بأكواد الإنتاج المختبرة: تنزيل وإرفاق الملفات في CRM، إرسال إيميلات HTML منسقة، صيد الأخطاء الآمن Try-Catch وغيرها.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-white/[0.06] text-xs font-semibold text-yellow-400 group-hover:text-pink-400">
+                            <span>Browse Vault</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 1: JSON TO DELUGE STUDIO
+                 ============================================================== -->
+            <div id="panel-json-deluge" class="tool-panel hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5" title="Back to All Tools Hub">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="braces" class="w-5 h-5 text-parot-pink"></i>
+                                <span>JSON to Deluge Interactive Studio</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5 font-arabic">
+                                انقر على أي عنصر في شجرة الـ JSON لتوليد كود Deluge فورياً، أو حدد حقول متعددة لتوليد كود ربط كامل لموديل Zoho CRM.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-slate-400 font-medium">Sample:</span>
+                        <select id="json-preset-select" class="text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                            <option value="crm_lead">Zoho CRM Lead Record</option>
+                            <option value="books_invoice">Zoho Books Invoice</option>
+                            <option value="webhook_payload">Stripe Webhook Event</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <!-- Left: JSON Input & Tree -->
+                    <div class="flex flex-col gap-4">
+                        <div class="studio-card p-4 flex flex-col">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                    <i data-lucide="file-json" class="w-4 h-4 text-purple-400"></i>
+                                    <span>Paste Raw JSON</span>
+                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <button id="json-btn-format" class="btn-secondary" title="Format JSON">Format</button>
+                                    <button id="json-btn-minify" class="btn-secondary" title="Minify JSON">Minify</button>
+                                    <button id="json-btn-clear" class="btn-secondary text-red-400 hover:text-red-300" title="Clear input">Clear</button>
+                                </div>
+                            </div>
+                            <textarea id="json-input" rows="7" class="code-editor" placeholder='{ "data": [ ... ] }'></textarea>
+                            <div id="json-error-msg" class="hidden text-xs text-red-400 mt-2 p-2 bg-red-950/40 border border-red-800/50 rounded-lg font-mono"></div>
+                        </div>
+
+                        <div class="studio-card p-4 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-2 pb-2 border-b border-white/[0.08]">
+                                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                    <i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i>
+                                    <span>Visual Tree Explorer (Click node to map)</span>
+                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <button id="json-btn-select-all" class="btn-secondary text-[10px]">Select All</button>
+                                    <button id="json-btn-deselect-all" class="btn-secondary text-[10px]">Deselect</button>
+                                </div>
+                            </div>
+                            <div id="json-tree-container" class="overflow-y-auto max-h-[360px] p-2 bg-[#05060A] rounded-lg border border-white/10 space-y-0.5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Extraction Configuration & Generated Deluge Code -->
+                    <div class="flex flex-col gap-4">
+                        <div class="studio-card p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                    <i data-lucide="sliders" class="w-4 h-4 text-parot-purple"></i>
+                                    <span>Extraction Mode</span>
+                                </span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mb-3">
+                                <button class="mode-pill active" data-mode="standard">Standard (.get())</button>
+                                <button class="mode-pill" data-mode="null_safe">Null-Safe Checks</button>
+                                <button class="mode-pill" data-mode="type_cast">Type-Casting</button>
+                                <button class="mode-pill" data-mode="construct">Deluge Constructor</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 pt-2 border-t border-white/[0.08]">
+                                <div>
+                                    <label class="text-[11px] text-slate-400 block mb-1">Root Variable Name</label>
+                                    <input id="json-root-var" type="text" value="response" 
+                                           class="w-full text-xs rounded-lg px-2.5 py-1.5 focus:border-parot-purple outline-none">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] text-slate-400 block mb-1">Target CRM Module</label>
+                                    <select id="json-target-module" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                        <option value="Leads">Leads</option>
+                                        <option value="Contacts">Contacts</option>
+                                        <option value="Accounts">Accounts</option>
+                                        <option value="Deals">Deals</option>
+                                        <option value="Invoices">Invoices</option>
+                                        <option value="Custom">Custom Record</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="studio-card p-4 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                                    <span id="json-selected-badge" class="type-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">SINGLE FIELD</span>
+                                    <span id="json-batch-count" class="hidden text-[10px] text-parot-pink font-mono font-bold"></span>
+                                </div>
+                                <button class="copy-code-btn btn-primary" data-target="json-deluge-output">
+                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    <span>Copy Code</span>
+                                </button>
+                            </div>
+                            <div id="json-selected-path-preview" class="text-xs font-mono text-purple-300 bg-purple-950/30 px-2.5 py-1.5 rounded border border-purple-800/30 mb-2 truncate">
+                                Click any JSON node to generate path
+                            </div>
+                            <pre class="code-output-box flex-1"><code id="json-deluge-output" class="language-clike">// Click on any node in the tree explorer on the left
+// or check multiple checkboxes to generate full CRM mapping</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 2: cURL TO invokeurl
+                 ============================================================== -->
+            <div id="panel-curl-invokeurl" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="terminal" class="w-5 h-5 text-parot-blue"></i>
+                                <span>cURL to Deluge invokeurl Converter</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                يحول أي أمر cURL فوريًا إلى دالة invokeurl في Deluge مع استخراج الترويسات والمعاملات وجسم الطلب.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                <i data-lucide="terminal" class="w-4 h-4 text-blue-400"></i>
+                                <span>Paste cURL Command</span>
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <select id="curl-preset-select" class="text-xs rounded-lg px-2 py-1 outline-none cursor-pointer">
+                                    <option value="post_json">REST API JSON (POST)</option>
+                                    <option value="get_bearer">Bearer Auth (GET)</option>
+                                    <option value="form_urlencoded">Form-Urlencoded (POST)</option>
+                                    <option value="zoho_refresh">Zoho OAuth Token Refresh</option>
+                                </select>
+                                <button id="curl-btn-clear" class="btn-secondary text-red-400 hover:text-red-300">Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="curl-input" rows="12" class="code-editor" placeholder="curl -X POST 'https://api.example.com/v1/resource' -H 'Authorization: Bearer token' -d '{...}'"></textarea>
+                        
+                        <div class="pt-2 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <label class="text-xs text-slate-400 whitespace-nowrap">Connection Name:</label>
+                                <input id="curl-connection-name" type="text" placeholder="e.g. zohocrm_conn (optional)" 
+                                       class="text-xs rounded-lg px-2.5 py-1.5 flex-1 sm:w-48 outline-none">
+                            </div>
+                            <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer self-start sm:self-auto">
+                                <input id="curl-detailed" type="checkbox" checked class="rounded border-white/20 text-parot-purple focus:ring-0">
+                                <span>detailed: true (Recommended)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="curl-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="curl-output" class="language-clike">// Deluge invokeurl will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 3: DATE & TIME TOOLKIT
+                 ============================================================== -->
+            <div id="panel-date-tools" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-5 h-5 text-parot-cyan"></i>
+                                <span>Deluge Date & Time Swiss Knife</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد دوال التاريخ والوقت في Deluge مع تحويل المناطق الزمنية، حساب أيام العمل، وصيغ Zoho مع معاينة حية.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1.5">Operation Type</label>
+                            <select id="date-op-mode" class="w-full text-xs rounded-lg px-3 py-2 outline-none cursor-pointer">
+                                <option value="format">Format Current Date/Time with Timezone</option>
+                                <option value="add_days">Add / Subtract Days to Date</option>
+                                <option value="workdays">Add Business Days (Skip Fri/Sat or Sat/Sun)</option>
+                                <option value="diff_days">Calculate Difference (Days Between Two Dates)</option>
+                                <option value="start_end_month">Start of Month & End of Month</option>
+                                <option value="epoch">Epoch Milliseconds to Deluge DateTime</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Timezone</label>
+                                <select id="date-timezone" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="Africa/Cairo">Africa/Cairo (Egypt)</option>
+                                    <option value="Asia/Riyadh">Asia/Riyadh (KSA)</option>
+                                    <option value="Asia/Dubai">Asia/Dubai (UAE)</option>
+                                    <option value="UTC">UTC / GMT</option>
+                                    <option value="America/New_York">America/New_York (EST)</option>
+                                    <option value="Europe/London">Europe/London (GMT/BST)</option>
+                                    <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+                                </select>
+                            </div>
+                            <div id="date-days-container" class="hidden">
+                                <label class="text-xs text-slate-400 block mb-1">Number of Days (+ / -)</label>
+                                <input id="date-days-val" type="number" value="7" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                        </div>
+
+                        <div id="date-format-container">
+                            <label class="text-xs text-slate-400 block mb-1">Date Format Pattern</label>
+                            <select id="date-format-preset" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer mb-2">
+                                <option value="yyyy-MM-dd'T'HH:mm:ssXXX">Zoho CRM DateTime (yyyy-MM-dd'T'HH:mm:ssXXX)</option>
+                                <option value="yyyy-MM-dd">Standard Date (yyyy-MM-dd)</option>
+                                <option value="dd/MM/yyyy">European / Middle East (dd/MM/yyyy)</option>
+                                <option value="MM/dd/yyyy">US Date (MM/dd/yyyy)</option>
+                                <option value="dd-MMM-yyyy">Readable Date (15-Jan-2026)</option>
+                                <option value="yyyyMMddHHmmss">Timestamp Compact (yyyyMMddHHmmss)</option>
+                                <option value="custom">Custom Format Pattern...</option>
+                            </select>
+                            <input id="date-custom-format" type="text" placeholder="e.g. yyyy/MM/dd HH:mm" class="hidden w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                        </div>
+
+                        <div class="p-3 bg-cyan-950/20 border border-cyan-800/30 rounded-lg">
+                            <span class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider block mb-1">Live Preview</span>
+                            <div id="date-live-preview" class="text-xs font-mono text-cyan-200">Current Time: ...</div>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="date-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="date-output" class="language-clike">// Date Deluge code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 4: CRM COQL QUERY BUILDER
+                 ============================================================== -->
+            <div id="panel-coql-builder" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="database" class="w-5 h-5 text-violet-400"></i>
+                                <span>Zoho CRM COQL Query Studio</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                بناء استعلامات COQL المتوافقة 100% مع قواعد Zoho CRM مع خيار التدوير التلقائي لجلب السجلات بأمان.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">CRM Module</label>
+                                <select id="coql-module" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="Leads">Leads</option>
+                                    <option value="Contacts">Contacts</option>
+                                    <option value="Accounts">Accounts</option>
+                                    <option value="Deals">Deals</option>
+                                    <option value="Invoices">Invoices</option>
+                                    <option value="Products">Products</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Limit (Per Request)</label>
+                                <input id="coql-limit" type="number" value="200" max="200" min="1" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Select Columns (Comma-separated)</label>
+                            <input id="coql-columns" type="text" value="id, First_Name, Last_Name, Email, Phone, Company, Created_Time" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-slate-300">WHERE Conditions</span>
+                                <button id="coql-btn-add-cond" class="btn-secondary text-[10px]">+ Add Condition</button>
+                            </div>
+                            <div id="coql-conditions-container" class="space-y-2"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 pt-2 border-t border-white/[0.08]">
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Order By Field</label>
+                                <input id="coql-orderby" type="text" value="Created_Time" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Direction</label>
+                                <select id="coql-orderdir" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="desc">DESC (Newest First)</option>
+                                    <option value="asc">ASC (Oldest First)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-white/[0.08]">
+                            <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                                <input id="coql-pagination-loop" type="checkbox" checked class="rounded border-white/20 text-parot-purple focus:ring-0">
+                                <span>Generate Safe Offset Pagination Loop (Process all batches)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="coql-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="coql-output" class="language-clike">// COQL query Deluge script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 5: SAFE PAGINATION LOOP GENERATOR
+                 ============================================================== -->
+            <div id="panel-pagination" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-5 h-5 text-emerald-400"></i>
+                                <span>Deluge Safe Pagination Loop Generator</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد حلقة تدوير آمنة لجلب آلاف السجلات من Zoho CRM أو Books أو REST APIs دون تجاوز سقف 5000 Statement.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Target API Service</label>
+                            <select id="page-api-type" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="crm">Zoho CRM getRecords (Page Number)</option>
+                                <option value="books">Zoho Books API (per_page & page)</option>
+                                <option value="cursor">REST API with Cursor / Next Token</option>
+                                <option value="offset">REST API with offset & limit</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Module / Endpoint</label>
+                                <input id="page-module-name" type="text" value="Leads" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Max Safe Pages (1-30)</label>
+                                <input id="page-max-count" type="number" value="10" min="1" max="30" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-emerald-950/20 border border-emerald-800/30 rounded-lg text-xs text-emerald-300 space-y-1">
+                            <span class="font-bold flex items-center gap-1.5">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                <span>Deluge 5,000 Statement Defense</span>
+                            </span>
+                            <p class="text-[11px] text-slate-400">
+                                This loop pattern uses pre-dimensioned integer lists <code class="text-emerald-300">{1, 2, ...}</code> and early termination breakers to ensure your function never hits statement limit fatal errors in production.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="page-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="page-output" class="language-clike">// Pagination script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 6: WEBHOOK PAYLOAD UNPACKER
+                 ============================================================== -->
+            <div id="panel-webhook" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="webhook" class="w-5 h-5 text-amber-400"></i>
+                                <span>Zoho Webhook Payload Unpacker</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد كود استقبال الويب هوك في Zoho مع معالجة `crmAPIRequest` واستخراج الترويسات والتحقق من التوكن السري.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Webhook Handler Context</label>
+                            <select id="webhook-type" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="crm_standalone">Zoho CRM Standalone Function (crmAPIRequest)</option>
+                                <option value="creator">Zoho Creator Form / Custom API</option>
+                                <option value="flow">Zoho Flow Custom Webhook</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                                <input id="webhook-check-token" type="checkbox" checked class="rounded border-white/20 text-parot-purple focus:ring-0">
+                                <span>Verify Secret API Key / Authorization Token</span>
+                            </label>
+                            <div>
+                                <label class="text-xs text-slate-400 block mb-1">Secret Key / Expected Token</label>
+                                <input id="webhook-token-value" type="text" value="PAROT_SECRET_TOKEN_2026" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-amber-950/20 border border-amber-800/30 rounded-lg text-xs text-amber-300">
+                            <strong>Security Best Practice:</strong> Zoho standalone functions should always return HTTP 200 with JSON response immediately to prevent timeout retries from payment gateways (Stripe, PayPal, etc.).
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="webhook-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="webhook-output" class="language-clike">// Webhook handler code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 7: STRING & REGEX UTILITIES
+                 ============================================================== -->
+            <div id="panel-string-regex" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="scissors" class="w-5 h-5 text-rose-400"></i>
+                                <span>Deluge String & Regex Swiss Knife</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                تنظيف ومعالجة النصوص في Deluge: أرقام الهواتف، البريد الإلكتروني، التحويلات، والتشفير.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Operation Type</label>
+                            <select id="str-op-select" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="clean_phone">Clean & Normalize Phone Number (+123456789)</option>
+                                <option value="extract_email_domain">Extract Domain from Email Address</option>
+                                <option value="split_full_name">Split Full Name into First & Last Name</option>
+                                <option value="csv_to_list">Convert Comma-Separated (CSV) to Deluge List</option>
+                                <option value="base64_encode">Base64 Encode / Decode</option>
+                                <option value="url_encode">URL Encode / Decode</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Input Sample Value</label>
+                            <input id="str-input-sample" type="text" value="+20 101 234 5678" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="str-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="str-output" class="language-clike">// String snippet will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 8: PRODUCTION SNIPPETS VAULT
+                 ============================================================== -->
+            <div id="panel-snippets" class="tool-panel hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-5 h-5 text-yellow-400"></i>
+                                <span>Production Deluge Snippets Vault</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                أكواد ديلوج موثوقة ومختبرة في مشاريع الإنتاج الحقيقية: جاهزة للنسخ والاستخدام فوراً.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Search & Filter -->
+                    <div class="relative w-full sm:w-64">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        <input id="snippet-search-input" type="text" placeholder="Search snippets..." 
+                               class="w-full bg-[#05060A] border border-white/10 rounded-lg pl-9 pr-4 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-parot-purple">
+                    </div>
+                </div>
+
+                <div id="snippet-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 9: CRITERIA SEARCH BUILDER
+                 ============================================================== -->
+            <div id="panel-criteria-builder" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="filter" class="w-5 h-5 text-emerald-400"></i>
+                                <span>Zoho CRM Criteria Search Builder</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد استعلامات `searchRecordsByCriteria` المعقدة مع الأقواس والشروط المركبة دون أي أخطاء syntax.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-1/2">
+                                <label class="text-xs font-bold text-slate-300 block mb-1">CRM Module</label>
+                                <select id="crit-module" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="Leads">Leads</option>
+                                    <option value="Contacts">Contacts</option>
+                                    <option value="Accounts">Accounts</option>
+                                    <option value="Deals">Deals</option>
+                                    <option value="CustomModule">Custom Module</option>
+                                </select>
+                            </div>
+                            <button id="crit-btn-add" class="btn-secondary text-xs flex items-center gap-1">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                <span>Add Condition</span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-2">Conditions Chain</label>
+                            <div id="crit-rows-container" class="space-y-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="crit-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="crit-output" class="language-clike">// Criteria code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 10: JSON ↔ XML CONVERTER
+                 ============================================================== -->
+            <div id="panel-json-xml" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="file-code-2" class="w-5 h-5 text-cyan-400"></i>
+                                <span>Deluge JSON ↔ XML Converter</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                بناء كود التحويل بين JSON و XML في ديلوج باستخدام .toXML() و .getJSON() الرسمية.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Conversion Direction</label>
+                            <select id="jsonxml-mode" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="json_to_xml">JSON String to Deluge XML Builder (.toXML())</option>
+                                <option value="xml_to_json">XML String to Deluge Map (.getJSON())</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Input Sample</label>
+                            <textarea id="jsonxml-input" rows="10" class="code-editor font-mono"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="jsonxml-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="jsonxml-output" class="language-clike">// Deluge XML/JSON script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 11: PAYLOAD DIFF ENGINE
+                 ============================================================== -->
+            <div id="panel-payload-diff" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="git-compare" class="w-5 h-5 text-indigo-400"></i>
+                                <span>Payload Diff & Change-Only CRM Updater</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                مقارنة حمولتين وتوليد كود ديلوج يحدّث في CRM فقط الحقول المتغيرة فعلياً.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Old Record (Before)</label>
+                                <textarea id="diff-old-json" rows="8" class="code-editor font-mono">{
+  "First_Name": "Sohib",
+  "Last_Name": "Khaled",
+  "Company": "Parot Corp",
+  "Email": "sohib@parotcorp.com",
+  "Lead_Status": "Contacted"
+}</textarea>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">New Record (After)</label>
+                                <textarea id="diff-new-json" rows="8" class="code-editor font-mono">{
+  "First_Name": "Sohib",
+  "Last_Name": "Khaled",
+  "Company": "Parot Corporation",
+  "Email": "sohib@parotcorp.com",
+  "Lead_Status": "Qualified"
+}</textarea>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button id="diff-btn-run" class="btn-primary">
+                                <i data-lucide="git-compare" class="w-3.5 h-3.5"></i>
+                                <span>Compare & Generate Update Script</span>
+                            </button>
+                            <div id="diff-summary" class="text-xs text-slate-400 font-mono"></div>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="diff-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="diff-output" class="language-clike">// Diff script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 12: HMAC & HASH SIGNER
+                 ============================================================== -->
+            <div id="panel-hmac-signer" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-purple-400"></i>
+                                <span>Deluge HMAC & Cryptographic Signer</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد كود التشفير والتوقيع الرقمي HMAC-SHA256 و SHA256 للتحقق من ويب هوك Stripe وبوابات الدفع.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Algorithm</label>
+                            <select id="hmac-algo" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="hmac_sha256">HMAC-SHA256 (Stripe, Shopify, GitHub, Razorpay)</option>
+                                <option value="sha256">SHA-256 Digest Checksum</option>
+                                <option value="md5">MD5 Hash</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Secret Key</label>
+                            <input id="hmac-secret" type="text" value="PAROT_SECRET_KEY_123" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Payload Sample (Raw String)</label>
+                            <textarea id="hmac-payload" rows="6" class="code-editor font-mono">{"event":"charge.successful","amount":1500}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="hmac-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="hmac-output" class="language-clike">// Cryptographic Deluge code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 13: 5,000 STATEMENT LIMIT THROTTLER
+                 ============================================================== -->
+            <div id="panel-statement-throttler" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="gauge" class="w-5 h-5 text-red-400"></i>
+                                <span>Deluge 5,000 Statement Limit Throttler</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                حارس ومراقب استهلاك التعليمات البرمجية لتفادي أخطاء تجاوز سقف 5000 Statement في ديلوج.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Est. Statements Per Item</label>
+                                <input id="throttle-stmts-per-loop" type="number" value="15" min="1" max="100" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Total Items to Process</label>
+                                <input id="throttle-batch-size" type="number" value="200" min="1" max="1000" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none">
+                            </div>
+                        </div>
+                        <div class="p-3 bg-red-950/20 border border-red-800/30 rounded-lg text-xs text-red-300">
+                            Zoho enforces a hard ceiling of 5,000 executed statements per workflow invocation. Exceeding it results in an uncatchable fatal exception that rolls back all database changes.
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="throttle-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="throttle-output" class="language-clike">// Statement limiter code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 14: ZOHO DESK TICKET & COMMENT BUILDER
+                 ============================================================== -->
+            <div id="panel-desk-builder" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="life-buoy" class="w-5 h-5 text-sky-400"></i>
+                                <span>Zoho Desk Ticket & Comment Builder</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                بناء تذاكر الدعم الفني والتعليقات الخاصة للوكلاء في Zoho Desk برمجياً من ديلوج.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Priority</label>
+                                <select id="desk-priority" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="High">High</option>
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-300 block mb-1">Channel</label>
+                                <select id="desk-channel" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                    <option value="Web">Web Portal</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="Chat">Live Chat</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                                <input id="desk-include-comment" type="checkbox" checked class="rounded border-white/20 text-parot-purple focus:ring-0">
+                                <span>Include Private Agent Comment (Internal Note)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="desk-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="desk-output" class="language-clike">// Desk script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 15: ZOHO BOOKS MULTI-ITEM INVOICE ENGINE
+                 ============================================================== -->
+            <div id="panel-books-engine" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="receipt" class="w-5 h-5 text-emerald-400"></i>
+                                <span>Zoho Books Multi-Item Invoice Engine</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                توليد مصفوفة بنود الفواتير (Line Items) والخصومات والضرائب لإنشاء فواتير Zoho Books برمجياً.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-300">Invoice Line Items</span>
+                            <button id="books-btn-add-item" class="btn-secondary text-xs flex items-center gap-1">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                <span>Add Item</span>
+                            </button>
+                        </div>
+                        <div id="books-items-container" class="space-y-2"></div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="books-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="books-output" class="language-clike">// Books Invoice script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 16: ARABIC NUMERALS & CURRENCY CLEANER
+                 ============================================================== -->
+            <div id="panel-currency-cleaner" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="calculator" class="w-5 h-5 text-teal-400"></i>
+                                <span>Arabic Numerals & Currency Cleaner</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                تحويل الأرقام العربية المشرقية (١٢٣) إلى غربية (123) وتجريد العملات لتخزين الأرقام في ديلوج بأمان.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Cleaning Mode</label>
+                            <select id="num-mode" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="arabic_to_western">Eastern Arabic Numerals (١٢٣) to Western (123)</option>
+                                <option value="currency_cleaner">Currency String ($1,250.50 EGP) to Deluge Decimal</option>
+                                <option value="format_currency">Format Number to Localized Currency String</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 block mb-1">Input Sample</label>
+                            <input id="num-sample" type="text" value="١٢٥٠٠.٧٥" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="num-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="num-output" class="language-clike">// Numeric cleaner code will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 17: DELUGE UNIT TESTING & MOCK RUNNER
+                 ============================================================== -->
+            <div id="panel-unit-testing" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="flask-conical" class="w-5 h-5 text-amber-400"></i>
+                                <span>Deluge Unit Testing & Mock Runner</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                إطار عمل لاختبار دوال ديلوج في بيئة Sandbox والتحقق من المخرجات ونسبة النجاح قبل النشر الفعلي.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Function Name Under Test</label>
+                            <input id="test-fn-name" type="text" value="calculateDiscount" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none font-mono">
+                        </div>
+                        <div class="p-3 bg-amber-950/20 border border-amber-800/30 rounded-lg text-xs text-amber-300">
+                            Unit testing in Deluge helps prevent regression bugs when modifying mission-critical business workflows.
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="test-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="test-output" class="language-clike">// Unit test suite script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================================
+                 TOOL 18: LEAD DEDUPLICATION & MERGE
+                 ============================================================== -->
+            <div id="panel-lead-dedup" class="tool-panel hidden">
+                <div class="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <button class="btn-back-hub btn-secondary text-xs flex items-center gap-1.5">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Hub</span>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="users" class="w-5 h-5 text-rose-400"></i>
+                                <span>Zoho CRM Lead Deduplication & Merge</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-arabic">
+                                كود ديلوج متكامل لفحص تكرار العملاء المحتملين بالبريد أو الهاتف ودمج البيانات تلقائيًا.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="studio-card p-4 space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Deduplication Unique Key</label>
+                            <select id="dedup-match-field" class="w-full text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer">
+                                <option value="email">Email Address</option>
+                                <option value="phone">Phone / Mobile Number</option>
+                                <option value="company">Company Name</option>
+                            </select>
+                        </div>
+                        <div class="p-3 bg-rose-950/20 border border-rose-800/30 rounded-lg text-xs text-rose-300">
+                            Prevents duplicate leads generated by webhooks, website forms, and landing pages from creating multiple CRM records.
+                        </div>
+                    </div>
+
+                    <div class="studio-card p-4 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">Generated Deluge Code</span>
+                            <button class="copy-code-btn btn-primary" data-target="dedup-output">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-output-box flex-1"><code id="dedup-output" class="language-clike">// Lead merge script will appear here</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Centered Bottom Footer -->
+            <footer class="mt-16 pt-8 pb-8 border-t border-white/[0.08] text-center">
+                <p class="text-xs text-slate-400 font-medium flex items-center justify-center gap-1.5 tracking-wide">
+                    Made with ❤️ by <a href="https://parotcorp.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-parot-pink transition-colors font-semibold">PAROT</a>
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Prism Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+    <!-- Tool Scripts (18 Total) -->
+    <script src="./js/tools/json-deluge.js"></script>
+    <script src="./js/tools/curl-invokeurl.js"></script>
+    <script src="./js/tools/date-tools.js"></script>
+    <script src="./js/tools/coql-builder.js"></script>
+    <script src="./js/tools/pagination-loop.js"></script>
+    <script src="./js/tools/webhook-unpacker.js"></script>
+    <script src="./js/tools/string-regex.js"></script>
+    <script src="./js/tools/snippet-vault.js"></script>
+    <script src="./js/tools/criteria-builder.js"></script>
+    <script src="./js/tools/json-xml.js"></script>
+    <script src="./js/tools/payload-diff.js"></script>
+    <script src="./js/tools/hmac-signer.js"></script>
+    <script src="./js/tools/statement-throttler.js"></script>
+    <script src="./js/tools/desk-builder.js"></script>
+    <script src="./js/tools/books-engine.js"></script>
+    <script src="./js/tools/currency-cleaner.js"></script>
+    <script src="./js/tools/unit-testing.js"></script>
+    <script src="./js/tools/lead-dedup.js"></script>
+
+    <!-- Main Application Coordinator -->
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
